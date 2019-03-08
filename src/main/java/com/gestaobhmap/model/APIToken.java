@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.type.DateType;
+
 @Entity
 @Table(name = "api_token")
 public class APIToken {
@@ -20,6 +22,8 @@ public class APIToken {
 	
 	private Calendar criadoEm;
     
+	private DateType data;
+
 	private Calendar expiraEm;
 	
 	//Getters and Setters
