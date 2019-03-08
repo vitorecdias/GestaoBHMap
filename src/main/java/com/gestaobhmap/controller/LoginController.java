@@ -16,8 +16,7 @@ public class LoginController {
 	public void teste() {
 		
 		User usuario = new User();
-		
-		usuario.setId(1);
+
 		usuario.setNome("vitor");
 		userRepository.save(usuario);
 		System.out.println("teste66666666666666666666666666666");

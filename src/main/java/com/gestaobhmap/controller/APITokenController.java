@@ -12,7 +12,7 @@ import com.gestaobhmap.repository.APITokenRepository;
 import com.gestaobhmap.requests.APITokenRequest;
 
 @RestController
-public class TokenController {
+public class APITokenController {
 
 	@Autowired
 	APITokenRepository apiTokenRepository;
@@ -24,7 +24,7 @@ public class TokenController {
 		
 		String token = apiToken.generateToken();
 		
-		apiToken.setAccessAPIToken(token);
+		apiToken.setApiToken(token);
 		
 		apiTokenRepository.save(apiToken);
 		

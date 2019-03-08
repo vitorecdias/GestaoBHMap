@@ -1,5 +1,7 @@
 package com.gestaobhmap.model;
 
+import java.util.Calendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,14 +16,19 @@ public class APIToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private String accessAPIToken;
+	private String apiToken;
+	
+	private Calendar criadoEm;
     
-	public String getAccessAPIToken() {
-		return accessAPIToken;
+	private Calendar expiraEm;
+	
+	//Getters and Setters
+	public String getApiToken() {
+		return apiToken;
 	}
 
-	public void setAccessAPIToken(String accessAPIToken) {
-		this.accessAPIToken = accessAPIToken;
+	public void setApiToken(String apiToken) {
+		this.apiToken = apiToken;
 	}
 
 	public long getId() {
@@ -31,6 +38,24 @@ public class APIToken {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	public Calendar getExpiraEm() {
+		return expiraEm;
+	}
+
+	public void setExpiraEm(Calendar expiraEm) {
+		this.expiraEm = expiraEm;
+	}
+
+	public Calendar getCriadoEm() {
+		return criadoEm;
+	}
+
+	public void setCriadoEm(Calendar criadoEm) {
+		this.criadoEm = criadoEm;
+	}
+	
+	//Métodos em geral
 
 	public String generateToken() {
 		
