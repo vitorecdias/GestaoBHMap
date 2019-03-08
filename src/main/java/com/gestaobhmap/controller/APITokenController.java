@@ -30,6 +30,8 @@ public class APITokenController {
 		
 		System.out.println(requesteToken);
 		System.out.println("TokenGerado!");
+       
+        
 		
 		return token;
 	}
