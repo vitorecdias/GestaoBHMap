@@ -18,21 +18,15 @@ public class APITokenController {
 	APITokenRepository apiTokenRepository;
 	
 	@PostMapping("/generateToken")
-	public String generateToken(@Valid @RequestBody APITokenRequest requesteToken) {
+	public APIToken generateToken(@Valid @RequestBody APITokenRequest requesteToken) {
 		
-		APIToken apiToken = new APIToken();
-		
-		String token = apiToken.generateToken();
-		
-		apiToken.setApiToken(token);
+		APIToken apiToken = requesteToken.generateToken();
 		
 		apiTokenRepository.save(apiToken);
 		
 		System.out.println(requesteToken);
 		System.out.println("TokenGerado!");
-       
-        
 		
-		return token;
+		return apiToken;
 	}
 }

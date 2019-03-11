@@ -1,14 +1,10 @@
 package com.gestaobhmap.model;
 
-import java.util.Calendar;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.type.DateType;
 
 @Entity
 @Table(name = "api_token")
@@ -20,11 +16,9 @@ public class APIToken {
 	
 	private String apiToken;
 	
-	private Calendar criadoEm;
-    
-	private DateType data;
+	private String criadoEm= "11/03/2019";
 
-	private Calendar expiraEm;
+	private String expiraEm= "11/03/2020";
 	
 	//Getters and Setters
 	public String getApiToken() {
@@ -42,28 +36,21 @@ public class APIToken {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
-	public Calendar getExpiraEm() {
-		return expiraEm;
-	}
 
-	public void setExpiraEm(Calendar expiraEm) {
-		this.expiraEm = expiraEm;
-	}
-
-	public Calendar getCriadoEm() {
+	public String getCriadoEm() {
 		return criadoEm;
 	}
 
-	public void setCriadoEm(Calendar criadoEm) {
+	public void setCriadoEm(String criadoEm) {
 		this.criadoEm = criadoEm;
 	}
-	
-	//Métodos em geral
 
-	public String generateToken() {
-		
-		
-		return "token";
+	public String getExpiraEm() {
+		return expiraEm;
 	}
+
+	public void setExpiraEm(String expiraEm) {
+		this.expiraEm = expiraEm;
+	}
+
 }
