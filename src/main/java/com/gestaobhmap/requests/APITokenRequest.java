@@ -1,9 +1,9 @@
 package com.gestaobhmap.requests;
 
 import java.security.Key;
-import java.util.Date;
 
 import com.gestaobhmap.model.APIToken;
+import com.gestaobhmap.model.SeedKey;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,51 +11,49 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 
 public class APITokenRequest {
 
-	private String userName;
-	private String timeStampCriacao;
-	private String userApplicationName;
-	private String apiName;
+	private Long userId;
+	private Long userApplicationId;
+	private Long apiId;
 	
-	public String getUserName() {
-		return userName;
+
+	public APITokenRequest() {
+		super();
+		this.userId = 0L;
+		this.userApplicationId = 0L;
+		this.apiId = 0L;
 	}
-	
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	
-	public String getTimeStampCriacao() {
-		return timeStampCriacao;
-	}
-	
-	public void setTimeStampCriacao(String timeStampCriacao) {
-		this.timeStampCriacao = timeStampCriacao;
-	}
-	
-	public String getUserApplicationName() {
-		return userApplicationName;
-	}
-	
-	public void setUserApplicationName(String userApplicationName) {
-		this.userApplicationName = userApplicationName;
-	}
-	
-	public String getApiName() {
-		return apiName;
-	}
-	
-	public void setApiName(String apiName) {
-		this.apiName = apiName;
-	}
-	
-	
+
 	//Métodos em geral
 
-	@Override
-	public String toString() {
-		return "APITokenRequest [userName=" + userName + ", timeStampCriacao=" + timeStampCriacao
-				+ ", userApplicationName=" + userApplicationName + ", apiName=" + apiName + "]";
+	public Long getUserId() {
+		return userId;
 	}
+
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+
+	public Long getUserApplicationId() {
+		return userApplicationId;
+	}
+
+
+	public void setUserApplicationId(Long userApplicationId) {
+		this.userApplicationId = userApplicationId;
+	}
+
+
+	public Long getApiId() {
+		return apiId;
+	}
+
+
+	public void setApiId(Long apiId) {
+		this.apiId = apiId;
+	}
+
 
 	public APIToken generateToken() {
 		
@@ -63,20 +61,29 @@ public class APITokenRequest {
 		
 		//Gerar tokem aqui/algoritmo////
 		Key key = MacProvider.generateKey();
-				System.out.println(key);
+		SeedKey seedKey = new SeedKey(key);
+		apiToken.setSeedKey(seedKey);
 
-		Date dateNow = new Date();
-		Date expires = new Date(dateNow.getTime() + 86400000);
-
-		String token = Jwts.builder().setSubject(this.userName).signWith(SignatureAlgorithm.HS256, key).setExpiration(expires).compact();
+		String token = Jwts.builder().setSubject(this.userId+"").signWith(SignatureAlgorithm.HS256, key).setExpiration(apiToken.getExpiraEm()).compact();
 		
-		String nome = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
+		String nome = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().toString();
 		
 		System.out.println("Nome do usuário recuperado da token: " +nome);
 		
+		apiToken.setApiId(apiId);
+		apiToken.setUserId(userId);
 		apiToken.setApiToken(token);
+		apiToken.setUserApplicationId(userApplicationId);
 		
 		return apiToken;
 	}
+
+	@Override
+	public String toString() {
+		return "APITokenRequest [userId=" + userId + ", userApplicationId=" + userApplicationId + ", apiId=" + apiId
+				+ "]";
+	}
+
+
 
 }
