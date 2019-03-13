@@ -19,9 +19,8 @@ public class UserController {
 	@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 	@GetMapping("/usuarios")
 	public List<User> teste() {
-		User user = new User();
-		user.setId(1);
-		user.setNome("vitor");
+		User user = new User(1,"vitor");
+		
 		userRepository.save(user);
 		
 		return userRepository.findAll();

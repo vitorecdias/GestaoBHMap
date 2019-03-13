@@ -7,39 +7,36 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "usuarios")
-public class User {
+@Table(name = "user_application")
+public class UserApplication {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
+	private Long nome;
 	
-	private String nome;
 	
-	public User(long id, String nome) {
+	public UserApplication(Long id, Long nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
 	
-	public User() {
-	
-	}
-
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	public String getNome() {
+	public Long getNome() {
 		return nome;
 	}
-	
-	public void setNome(String nome) {
+	public void setNome(Long nome) {
 		this.nome = nome;
+	}
+	@Override
+	public String toString() {
+		return "UserApplication [id=" + id + ", nome=" + nome + "]";
 	}
 	
 	
