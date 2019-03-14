@@ -16,6 +16,11 @@ import javax.persistence.Table;
 @IdClass(APITokenPK.class)
 public class APIToken implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private Long userId;
 	@Id
@@ -23,7 +28,9 @@ public class APIToken implements Serializable{
 	@Id
 	private Long apiId;
 	
-	private String apiToken;
+	@OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "fk_api_token_token",nullable=false)
+	private Token token;
 	
 	private Date criadoEm;
 
@@ -45,16 +52,6 @@ public class APIToken implements Serializable{
 	}
 
 	//Getters and Setters
-
-	public String getApiToken() {
-		return apiToken;
-	}
-
-
-	public void setApiToken(String apiToken) {
-		this.apiToken = apiToken;
-	}
-
 
 	public Date getCriadoEm() {
 		return criadoEm;
@@ -121,6 +118,12 @@ public class APIToken implements Serializable{
 		this.desativada = desativada;
 	}
 
+	public Token getToken() {
+		return token;
+	}
 
-
+	public void setToken(Token token) {
+		this.token = token;
+	}
+	
 }

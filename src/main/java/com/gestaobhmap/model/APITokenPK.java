@@ -14,7 +14,7 @@ public class APITokenPK implements Serializable {
 
     public APITokenPK() {}
 
-	public APITokenPK(Long userId, Long userApplicationId, Long apiId) {
+	public APITokenPK(Long id, Long userId, Long userApplicationId, Long apiId) {
 		super();
 		this.userId = userId;
 		this.userApplicationId = userApplicationId;

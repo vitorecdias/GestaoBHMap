@@ -13,12 +13,12 @@ public class UserApplication {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long nome;
+	private String nome;
 	
-	
-	public UserApplication(Long id, Long nome) {
+	public UserApplication( ) {
+	}
+	public UserApplication(String nome) {
 		super();
-		this.id = id;
 		this.nome = nome;
 	}
 	
@@ -28,10 +28,10 @@ public class UserApplication {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getNome() {
+	public String getNome() {
 		return nome;
 	}
-	public void setNome(Long nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	@Override

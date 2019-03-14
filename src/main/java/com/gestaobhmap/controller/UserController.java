@@ -3,7 +3,6 @@ package com.gestaobhmap.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,12 +15,14 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
-	@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 	@GetMapping("/usuarios")
 	public List<User> teste() {
-		User user = new User(1,"vitor");
 		
-		userRepository.save(user);
+		for(int i = 0;i <10;i++) {
+			User user = new User("fulano"+ i);
+			userRepository.save(user);
+		}
+		
 		
 		return userRepository.findAll();
 	}

@@ -4,6 +4,7 @@ import java.security.Key;
 
 import com.gestaobhmap.model.APIToken;
 import com.gestaobhmap.model.SeedKey;
+import com.gestaobhmap.model.Token;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -63,16 +64,19 @@ public class APITokenRequest {
 		Key key = MacProvider.generateKey();
 		SeedKey seedKey = new SeedKey(key);
 		apiToken.setSeedKey(seedKey);
-
-		String token = Jwts.builder().setSubject(this.userId+"").signWith(SignatureAlgorithm.HS256, key).setExpiration(apiToken.getExpiraEm()).compact();
 		
-		String nome = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().toString();
+		
+
+		String tokenStr = Jwts.builder().setSubject(this.userId+"").signWith(SignatureAlgorithm.HS256, key).setExpiration(apiToken.getExpiraEm()).compact();
+		
+		String nome = Jwts.parser().setSigningKey(key).parseClaimsJws(tokenStr).getBody().toString();
 		
 		System.out.println("Nome do usuário recuperado da token: " +nome);
-		
+		Token token = new Token(tokenStr); 
+			
+		apiToken.setToken(token);
 		apiToken.setApiId(apiId);
 		apiToken.setUserId(userId);
-		apiToken.setApiToken(token);
 		apiToken.setUserApplicationId(userApplicationId);
 		
 		return apiToken;

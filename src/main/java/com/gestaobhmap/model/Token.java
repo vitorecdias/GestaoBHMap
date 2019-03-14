@@ -1,7 +1,5 @@
 package com.gestaobhmap.model;
 
-import java.security.Key;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,36 +7,36 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "seed_key")
-public class SeedKey {
+@Table(name = "token")
+public class Token {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	private Key seedKey;
 	
-	public SeedKey() {
-		super();
-		this.seedKey = null;
-	}
-	public SeedKey(Key seedKey) {
-		super();
-		this.seedKey = seedKey;
-	}
+	private String token;
 	
+	public Token() {
+		super();
+		this.token = null;
+	}
+	public Token(String token) {
+		super();
+		this.token = token;
+	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Key getSeedKey() {
-		return seedKey;
+	public String getToken() {
+		return token;
 	}
-
-	public void setSeedKey(Key seedKey) {
-		this.seedKey = seedKey;
+	public void setToken(String token) {
+		this.token = token;
 	}
+	
+	
 	
 }

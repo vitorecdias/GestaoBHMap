@@ -16,9 +16,8 @@ public class User {
 	
 	private String nome;
 	
-	public User(long id, String nome) {
+	public User( String nome) {
 		super();
-		this.id = id;
 		this.nome = nome;
 	}
 	
