@@ -16,7 +16,11 @@ public class UserApplication {
 	private String nome;
 	
 	public UserApplication( ) {
+		this.id = 0L;
+		this.nome = "";
+		
 	}
+	
 	public UserApplication(String nome) {
 		super();
 		this.nome = nome;
