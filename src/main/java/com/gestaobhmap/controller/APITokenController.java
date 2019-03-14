@@ -15,7 +15,7 @@ import com.gestaobhmap.model.APIToken;
 import com.gestaobhmap.repository.APITokenRepository;
 import com.gestaobhmap.requests.APITokenRequest;
 
-@CrossOrigin(maxAge = 3600)
+
 @RestController
 public class APITokenController {
 
@@ -35,7 +35,7 @@ public class APITokenController {
 		return apiToken;
 	}
 	
-	 @CrossOrigin(origins = "http://localhost:3000")
+	//@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 	@GetMapping("/tokens")
 	public List<APIToken> getTokens() {
 		
