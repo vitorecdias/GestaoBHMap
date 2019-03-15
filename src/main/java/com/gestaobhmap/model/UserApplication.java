@@ -1,5 +1,7 @@
 package com.gestaobhmap.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,11 +10,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_application")
-public class UserApplication {
+public class UserApplication implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private long id;
 	private String nome;
 	
 	public UserApplication( ) {
@@ -21,15 +27,16 @@ public class UserApplication {
 		
 	}
 	
-	public UserApplication(String nome) {
+	public UserApplication(long id, String nome) {
 		super();
+		this.id = id;
 		this.nome = nome;
 	}
 	
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getNome() {

@@ -12,14 +12,20 @@ import com.gestaobhmap.repository.UserRepository;
 @RestController
 public class UserController {
 
+	//@Autowired
+  //  AuthenticationManager authenticationManager;
+	
 	@Autowired
 	UserRepository userRepository;
 	
+	/*
+	 * @Autowired JwtTokenProvider tokenProvider;
+	 */
 	@GetMapping("/usuarios")
 	public List<User> teste() {
 		
 		for(int i = 0;i <10;i++) {
-			User user = new User("fulano"+ i);
+			User user = new User();
 			userRepository.save(user);
 		}
 		
@@ -27,4 +33,17 @@ public class UserController {
 		return userRepository.findAll();
 	}
 	
+	/*
+	 * @PostMapping("/login") public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	 * 
+	 * Authentication authentication = authenticationManager.authenticate( new
+	 * UsernamePasswordAuthenticationToken( loginRequest.getUsernameOrEmail(),
+	 * loginRequest.getPassword() ) );
+	 * 
+	 * SecurityContextHolder.getContext().setAuthentication(authentication);
+	 * 
+	 * String jwt = tokenProvider.generateToken(authentication); return
+	 * ResponseEntity.ok(new JwtAuthenticationResponse(jwt)); }
+	 */
+
 }

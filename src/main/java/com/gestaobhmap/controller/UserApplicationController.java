@@ -4,9 +4,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import org.jboss.jandex.TypeTarget.Usage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,20 +38,25 @@ public class UserApplicationController {
 	
 	@GetMapping("/applications/{id}")
 	public Optional<UserApplication> findUserApplication(@PathVariable Long id) {
+		Optional<UserApplication> userApplication = userApplicationRepository.findById(id);
+
+		/*
+		 * if (!userApplication.isPresent()) throw new StudentNotFoundException("id-" +
+		 * id);
+		 */
+		return userApplication;
 		
-		
-		return userApplicationRepository.findById(id);
 	}
 	
 	@PutMapping("/applications/{id}")
 	public ResponseEntity<Object> updateUserApplication(@RequestBody UserApplication userApplication, @PathVariable long id) {
 
-		/*
-		 * Optional<UserApplication> studentOptional =
-		 * userApplicationRepository.findById(id);
-		 * 
-		 * if (!studentOptional.isPresent()) return ResponseEntity.notFound().build();
-		 */
+		
+		Optional<UserApplication> studentOptional =  userApplicationRepository.findById(id);
+		  
+		if (!studentOptional.isPresent())
+			return ResponseEntity.notFound().build();
+
 		userApplication.setId(id);
 		
 		userApplicationRepository.save(userApplication);
@@ -61,12 +66,20 @@ public class UserApplicationController {
 	
 	@PostMapping("/applications")
 	public ResponseEntity<Object> createUserApplication(@RequestBody UserApplication userApplication) {
+		
 		UserApplication savedUserApplication = userApplicationRepository.save(userApplication);
-
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/")
+		
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(savedUserApplication.getId()).toUri();
 
 		return ResponseEntity.created(location).build();
 
 	}
+	
+	@DeleteMapping("/applications/{id}")
+	public void deleteUserApplication(@PathVariable Long id) {
+		userApplicationRepository.deleteById(id);
+	}
+	
+	
 }
