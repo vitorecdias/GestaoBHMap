@@ -21,6 +21,10 @@ public class APITokenPK implements Serializable {
 		this.apiId = apiId;
 	}
 
-    // equals, hashCode
+    // hashCode
+	public boolean equals(APIToken apiToken) {
+		
+		return (this.userId == apiToken.getUserId() && this.userApplicationId == apiToken.getUserApplicationId() && this.userId == apiToken.getUserId());
+	}
     
 }

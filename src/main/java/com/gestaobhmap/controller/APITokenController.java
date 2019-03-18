@@ -34,7 +34,7 @@ public class APITokenController {
 		return apiToken;
 	}
 	
-	@GetMapping("/AllTokens")
+	@GetMapping("/alltokens")
 	public List<APIToken> getTokens() {
 		
 		List <APIToken> tokensList = apiTokenRepository.findAll();

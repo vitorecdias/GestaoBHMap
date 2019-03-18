@@ -6,9 +6,6 @@ import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.MappedSuperclass;
 
-/**
- * Created by rajeevkumarsingh on 19/08/17.
- */
 
 @MappedSuperclass
 @JsonIgnoreProperties(
@@ -16,8 +13,12 @@ import javax.persistence.MappedSuperclass;
         allowGetters = true
 )
 public abstract class UserDateAudit extends DateAudit {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    @CreatedBy
+	@CreatedBy
     private Long createdBy;
 
     @LastModifiedBy

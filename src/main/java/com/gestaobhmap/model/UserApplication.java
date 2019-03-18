@@ -11,7 +11,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user_application")
 public class UserApplication implements Serializable{
-
 	/**
 	 * 
 	 */
