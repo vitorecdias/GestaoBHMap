@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,43 +26,34 @@ public class UserApplicationController {
 	UserApplicationRepository userApplicationRepository;
 	
 	@GetMapping("/applications")
-	public List<UserApplication> listApplications() {
-		
-		/*for(int i = 1;i <=2;i++) {
-			UserApplication user = new UserApplication("App"+ i);
-			userApplicationRepository.save(user);
-		}*/
+	public ResponseEntity<?> listApplications() {
+
+		HttpHeaders header = new HttpHeaders();
 		
 		
-		return userApplicationRepository.findAll();
+		List<UserApplication> list = userApplicationRepository.findAll();
+		
+		header.add("X-Total-Count",list.size()+"");
+		
+		return ResponseEntity.ok().headers(header).body(list);
 	}
 	
 	@GetMapping("/applications/{id}")
 	public Optional<UserApplication> findUserApplication(@PathVariable Long id) {
 		Optional<UserApplication> userApplication = userApplicationRepository.findById(id);
 
-		/*
-		 * if (!userApplication.isPresent()) throw new StudentNotFoundException("id-" +
-		 * id);
-		 */
 		return userApplication;
 		
 	}
 	
 	@PutMapping("/applications/{id}")
-	public ResponseEntity<Object> updateUserApplication(@RequestBody UserApplication userApplication, @PathVariable long id) {
-
-		
-		Optional<UserApplication> studentOptional =  userApplicationRepository.findById(id);
-		  
-		if (!studentOptional.isPresent())
-			return ResponseEntity.notFound().build();
+	public UserApplication updateUserApplication(@RequestBody UserApplication userApplication, @PathVariable long id) {
 
 		userApplication.setId(id);
 		
-		userApplicationRepository.save(userApplication);
-
-		return ResponseEntity.noContent().build();
+		UserApplication userApp = userApplicationRepository.save(userApplication);
+		
+		return userApp;
 	}
 	
 	@PostMapping("/applications")
@@ -72,13 +64,15 @@ public class UserApplicationController {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(savedUserApplication.getId()).toUri();
 
-		return ResponseEntity.created(location).build();
-
+		return ResponseEntity.created(location).body(savedUserApplication);
 	}
 	
 	@DeleteMapping("/applications/{id}")
-	public void deleteUserApplication(@PathVariable Long id) {
+	public Optional<UserApplication> deleteUserApplication(@PathVariable Long id) {
+		Optional<UserApplication> userApplication = userApplicationRepository.findById(id);
 		userApplicationRepository.deleteById(id);
+		
+		return userApplication;
 	}
 	
 	
